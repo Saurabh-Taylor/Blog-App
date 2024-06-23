@@ -2,12 +2,11 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import { useDispatch } from 'react-redux'
 import authService from "./appwrite/auth.service";
-
 import {  login , logout } from "./store/authSlice";
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import { BrowserRouter, Outlet } from 'react-router-dom';
 
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import { Outlet } from 'react-router-dom';
 
 
 function App() {
@@ -34,13 +33,15 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-red-500 flex flex-wrap content-between  "> 
+    <BrowserRouter  >
+    <div className="min-h-screen flex flex-wrap content-between"> 
       <div className='w-full  block' >
         <Header/>
-        {/* <main> <Outlet/> </main> */}
+        <main> <Outlet/> </main>
         <Footer/>
       </div> 
     </div>
+    </BrowserRouter>
     )
 }
 
