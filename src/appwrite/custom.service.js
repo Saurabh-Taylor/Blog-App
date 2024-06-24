@@ -1,4 +1,4 @@
-import AppWriteconf from "../conf";
+import conf from "../conf";
 
 import { Client , Databases , ID , Storage , Query } from "appwrite";
 
@@ -9,20 +9,20 @@ export class Service{
      
     constructor(){
         this.client
-            .setEndpoint(AppWriteconf.appwriteUrl)
-            .setProject(AppWriteconf.appwriteUrl)
+            .setEndpoint(conf.appwriteUrl)
+            .setProject(conf.appwriteProjectId)
         this.databases = new Databases(this.client)
         this.storage = new Storage(this.client)
     }
 
-    async createPost ({title , slug , content , featuredImage , status , userID}){
+    async createPost ({title , slug , content , featuredImage , status , UserId}){
         try {
             return await this.databases
             .createDocument(
-                AppWriteconf.appwriteDatabaseId ,
-                AppWriteconf.appwriteCollectionId ,
-                slug , 
-                {title , content , featuredImage , status , userID}
+                conf.appwriteDatabaseId ,
+                conf.appwriteCollectionId ,
+                slug, 
+                {title , content , featuredImage , status , UserId}
             )
         } catch (error) {
             console.log(`Appwrite service:: createPost::` , error);
@@ -30,14 +30,14 @@ export class Service{
     }
 
     // we are taking slug as our documentId
-    async updatePost (slug , {title , content , featuredImage , status , userID}){
+    async updatePost (slug , {title , content , featuredImage , status , UserId}){
         try {
             return await this.databases
             .updateDocument(
-                AppWriteconf.appwriteDatabaseId ,
-                AppWriteconf.appwriteCollectionId ,
+                conf.appwriteDatabaseId ,
+                conf.appwriteCollectionId ,
                 slug , 
-                {title , content , featuredImage , status , userID}
+                {title , content , featuredImage , status , UserId}
             )
         } catch (error) {
             console.log(`Appwrite service:: updatePost::` , error);
@@ -48,8 +48,8 @@ export class Service{
         try {
             await this.databases
             .deleteDocument(
-                AppWriteconf.appwriteDatabaseId ,
-                AppWriteconf.appwriteCollectionId ,
+                conf.appwriteDatabaseId ,
+                conf.appwriteCollectionId ,
                 slug
             )
             return true
@@ -63,8 +63,8 @@ export class Service{
         try {
             return await this.databases
             .getDocument(
-                AppWriteconf.appwriteDatabaseId ,
-                AppWriteconf.appwriteCollectionId ,
+                conf.appwriteDatabaseId ,
+                conf.appwriteCollectionId ,
                 slug
             )
            
@@ -80,8 +80,8 @@ export class Service{
         try {
             return await this.databases
             .listDocuments(
-                AppWriteconf.appwriteDatabaseId ,
-                AppWriteconf.appwriteCollectionId ,
+                conf.appwriteDatabaseId ,
+                conf.appwriteCollectionId ,
                 queries
             )
            
@@ -94,10 +94,14 @@ export class Service{
     //file upload service
 
     async uploadFile (file){
+        console.log("FILE:::", file);
+        console.log(conf.appwriteBucketId);
+        console.log(conf.appwriteProjectId);
+        console.log(typeof conf.appwriteBucketId);
         try {
             return await this.storage
             .createFile(
-                AppWriteconf.appwriteBucketId,
+                conf.appwriteBucketId,
                 ID.unique(),
                 file
             )
@@ -110,7 +114,7 @@ export class Service{
         try {
             await this.storage
             .deleteFile(
-                AppWriteconf.appwriteBucketId,
+                conf.appwriteBucketId,
                 fileId
             )
             return true
@@ -120,11 +124,11 @@ export class Service{
         }
     }
 
-    async getFilePreview (fileId){
+    getFilePreview (fileId){
        
         return this.storage
         .getFilePreview(
-            AppWriteconf.appwriteBucketId,
+            conf.appwriteBucketId,
             fileId
         )
     }

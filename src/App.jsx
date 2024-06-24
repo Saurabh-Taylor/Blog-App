@@ -33,7 +33,6 @@ function App() {
   }
 
   return (
-    <BrowserRouter  >
     <div className="min-h-screen flex flex-wrap content-between"> 
       <div className='w-full  block' >
         <Header/>
@@ -41,7 +40,6 @@ function App() {
         <Footer/>
       </div> 
     </div>
-    </BrowserRouter>
     )
 }
 
