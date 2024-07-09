@@ -55,7 +55,7 @@ const Login = () => {
                 <div className='space-y-5'>
                     <Input
                     label="Email: "
-                    placeholder="Enter your email"
+                    placeholder="Enter your email or Email: test@gmail.com"
                     type="email"
                     {...register("email", {
                         required: true,
@@ -68,7 +68,7 @@ const Login = () => {
                     <Input
                     label="Password: "
                     type="password"
-                    placeholder="Enter your password"
+                    placeholder="Enter your password or Password: 12345678"
                     {...register("password", {
                         required: true,
                     })}
