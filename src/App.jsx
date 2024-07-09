@@ -6,6 +6,7 @@ import {  login , logout } from "./store/authSlice";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import { BrowserRouter, Outlet } from 'react-router-dom';
+import Loader from './components/Loader';
 
 
 
@@ -29,7 +30,9 @@ function App() {
   }, [])
   
   if(loading){
-    return <div>Loading...</div>
+    return <div>
+      <Loader/>
+    </div>
   }
 
   return (
